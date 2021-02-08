@@ -14,7 +14,7 @@
       "image": "okikawaru",
       "essential": true,
       "name": "embulk"
-    },
+    }
   ],
   "memory": null,
   "taskRoleArn": null,
