@@ -30,8 +30,8 @@ RUN wget -q https://dl.bintray.com/embulk/maven/embulk-${EMBULK_VERSION}.jar -O 
 RUN embulk gem install embulk-input-s3 && \
     embulk gem install embulk-output-bigquery
 
-# add embulk user
-RUN adduser -D -h /home/embulk embulk
-RUN mkdir workspace
-WORKDIR /home/embulk/workspace
-USER embulk
+# # add embulk user
+# RUN adduser -D -h /home/embulk embulk
+# RUN mkdir workspace
+# WORKDIR /home/embulk/workspace
+# USER embulk
