@@ -22,5 +22,6 @@
   "requiresCompatibilities": [
     "FARGATE"
   ],
+  "NetworkMode": "awsvpc",
   "cpu": null
 }
