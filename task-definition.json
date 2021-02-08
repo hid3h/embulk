@@ -1,13 +1,6 @@
 {
   "containerDefinitions": [
     {
-      "portMappings": [
-        {
-          "hostPort": 0,
-          "protocol": "tcp",
-          "containerPort": 3000
-        }
-      ],
       "memory": 300,
       "memoryReservation": null,
       "volumesFrom": [],
