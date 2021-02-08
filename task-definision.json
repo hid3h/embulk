@@ -1,0 +1,26 @@
+{
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "hostPort": 0,
+          "protocol": "tcp",
+          "containerPort": 3000
+        }
+      ],
+      "memory": 300,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "okikawaru",
+      "essential": true,
+      "name": "embulk"
+    },
+  ],
+  "memory": null,
+  "taskRoleArn": null,
+  "family": "embulk-test-task",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": null
+}
