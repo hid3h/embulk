@@ -1,4 +1,5 @@
-FROM openjdk:8-jre-alpine
+# alpineだとaws-cliが実行できないのでslim
+FROM openjdk:8-jre-slim
 
 ARG EMBULK_VERSION=0.9.23
 
