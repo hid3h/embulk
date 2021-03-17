@@ -11,7 +11,6 @@
   ],
   "cpu": "256",
   "memory": "512",
-  "taskRoleArn": null,
   "family": "embulk-test-task",
   "requiresCompatibilities": [
     "FARGATE"
