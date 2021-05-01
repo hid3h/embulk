@@ -4,7 +4,7 @@ FROM openjdk:8-jre-slim
 ARG EMBULK_VERSION=0.9.23
 
 RUN apt-get update \
-    && apt-get install -y curl jq unzip
+    && apt-get install -y curl jq
 
 RUN curl --create-dirs -o /usr/local/bin/embulk -L https://dl.embulk.org/embulk-${EMBULK_VERSION}.jar \
     && chmod +x /usr/local/bin/embulk
@@ -20,8 +20,8 @@ RUN curl --create-dirs -o /usr/local/bin/embulk -L https://dl.embulk.org/embulk-
 # Embulkで使うライブラリをインストール
 RUN embulk gem install embulk-input-mysql \
     && embulk gem install embulk-output-bigquery \
-    && embulk gem install embulk-filter-ruby_proc \
-    && embulk gem install jruby-openssl
+    && embulk gem install embulk-filter-ruby_proc
+    # && embulk gem install jruby-openssl
 
 RUN mkdir workspace
 WORKDIR /workspace
