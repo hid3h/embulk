@@ -1,9 +1,7 @@
 embulkの動作を試す。
 
-実際に移行はせず`embulk preview` で結果をみる。
 
-
-# 準備
+## 準備
 `docker-compose build`
 
 `docker-compose up`
@@ -36,3 +34,8 @@ CREATE TABLE `articles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 ```
+
+.envファイルに必要な情報を記述
+
+## 実行
+`embulk run config/{table_name}.yml.liquid`
