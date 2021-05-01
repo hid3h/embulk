@@ -19,8 +19,10 @@ RUN curl --create-dirs -o /usr/local/bin/embulk -L https://dl.embulk.org/embulk-
 
 # Embulkで使うライブラリをインストール
 RUN embulk gem install embulk-input-mysql \
-    && embulk gem install embulk-output-bigquery \
-    && embulk gem install embulk-filter-ruby_proc
+    && embulk gem install representable -v 3.0.4 \
+    && embulk gem install faraday -v 0.17.4 \
+    && embulk gem install embulk-output-bigquery
+    # && embulk gem install embulk-filter-ruby_proc
     # && embulk gem install jruby-openssl
 
 RUN mkdir workspace

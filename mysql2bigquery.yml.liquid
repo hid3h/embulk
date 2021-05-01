@@ -1,0 +1,45 @@
+in:
+  type: mysql
+  host: {{ env.DB_HOST | default: "db" }}
+  user: {{ env.DB_USER | default: "root" }}
+  password: {{ env.DB_PASSWORD | default: "''" }}
+  database: {{ env.DB_NAME | default: "embulkdb" }}
+  table: {{ table_name }}
+  select: {{ select_columns }}
+  order_by: id ASC
+  socket_timeout: 7200
+  options: { serverTimezone: Asia/Tokyo }
+  default_column_options:
+    DATE: { type: string, timestamp_format: "%Y-%m-%d" }
+
+filters:
+  - type: ruby_proc
+    columns:
+      - name: birth_date
+        proc: |
+          ->(birth_date_time) do
+            # 一部UTCに正しく変換できないデータがあるためそのデータはnilに変換
+            if birth_date_time < Time.parse("1000/01/01 00:00:00")
+              return nil
+            end
+            birth_date_time
+          end
+
+out:
+  type: bigquery
+  mode: replace
+  auth_method: service_account
+  json_keyfile: 
+    content: |
+      {
+        "private_key_id": "{{ env.GCP_PRIVATE_KEY_ID }}",
+        "private_key":    "{{ env.GCP_PRIVATE_KEY }}",
+        "client_email":   "{{ env.GCP_CLIENT_EMAIL }}"
+      }
+  schema_file: bigquery_schemas/{{ table_name }}.json
+  project: {{ env.BIGQUERY_PROJECT }}
+  dataset: {{ env.BIGQUERY_DATASET }}
+  table: {{ table_name }}
+  allow_quoted_newlines: true
+  job_status_polling_interval: 3
+  

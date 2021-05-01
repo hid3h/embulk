@@ -1,0 +1,31 @@
+in:
+  type: mysql
+  host: {{ env.DB_HOST | default: "db" }}
+  user: {{ env.DB_USER | default: "root" }}
+  password: {{ env.DB_PASSWORD | default: "root" }}
+  database: {{ env.DB_NAME | default: "embulkdb" }}
+  table: accounts
+  select: id, screen_name, created_at
+  order_by: id ASC
+  socket_timeout: 7200
+  options: { serverTimezone: Asia/Tokyo }
+  default_column_options:
+    DATE: { type: string, timestamp_format: "%Y-%m-%d" }
+
+out:
+  type: bigquery
+  mode: replace
+  auth_method: service_account
+  json_keyfile: 
+    content: |
+      {
+        "private_key_id": "{{ env.GCP_PRIVATE_KEY_ID }}",
+        "private_key":    "{{ env.GCP_PRIVATE_KEY }}",
+        "client_email":   "{{ env.GCP_CLIENT_EMAIL }}"
+      }
+  schema_file: bigquery_schemas/accounts.json
+  project: {{ env.BIGQUERY_PROJECT }}
+  dataset: {{ env.BIGQUERY_DATASET | default: "embulk_test" }}
+  table: accounts
+  allow_quoted_newlines: true
+  job_status_polling_interval: 3
