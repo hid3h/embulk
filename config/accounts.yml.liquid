@@ -7,10 +7,6 @@ in:
   table: accounts
   select: id, screen_name, created_at
   order_by: id ASC
-  socket_timeout: 7200
-  options: { serverTimezone: Asia/Tokyo }
-  default_column_options:
-    DATE: { type: string, timestamp_format: "%Y-%m-%d" }
 
 out:
   type: bigquery
@@ -28,4 +24,3 @@ out:
   dataset: {{ env.BIGQUERY_DATASET | default: "embulk_test" }}
   table: accounts
   allow_quoted_newlines: true
-  job_status_polling_interval: 3
